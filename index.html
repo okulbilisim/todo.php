@@ -18,7 +18,7 @@
         <img class="img-header" src="images/To-do.png"/>
     </div>
     <div>
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" id="form">
             <div class="well">
                 <div class="form-group form-group-lg" >
                     <div class="col-sm-12">
@@ -56,6 +56,13 @@
     var input = $('#formGroupInputLarge');
     var template = $('#todoTemplate');
     var todoContainer = $('#todoContainer');
+    $('#form').bind('keyup keypress', function(e)
+    {
+       if (e.keyCode == 13)
+       {
+           e.preventDefault();
+       }
+    });
     input.keydown(function(e)
     {
         // enter tusu
@@ -70,7 +77,9 @@
             }
 
             var newTodo = $('<div class="well"></div>');
-            newTodo.html(template.html().replace('[TODO_TITLE]', input.val()));
+            var val = input.val().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;");
+
+            newTodo.html(template.html().replace('[TODO_TITLE]', val));
             todoContainer.append(newTodo);
 
             // clear input and focus
