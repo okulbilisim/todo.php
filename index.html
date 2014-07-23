@@ -101,14 +101,7 @@
 
                 var itemTitle = newTodo.find('span.items');
                 console.log("Found element", itemTitle.length);
-                if (!itemTitle.hasClass('item-done'))
-                {
-                    itemTitle.addClass('item-done');
-                }
-                else
-                {
-                    itemTitle.removeClass('item-done');
-                }
+                itemTitle.toggleClass('item-done');
             });
         }
     });
