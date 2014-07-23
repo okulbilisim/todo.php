@@ -63,6 +63,7 @@
            e.preventDefault();
        }
     });
+
     input.keydown(function(e)
     {
         // enter tusu
@@ -91,6 +92,23 @@
                 console.log("Found");
                 e.preventDefault();
                 setTimeout(function() { newTodo.remove(); }, 0);
+            })
+
+            newTodo.find('img.doneLink').click(function(e)
+            {
+                console.log("Found");
+                e.preventDefault();
+
+                var itemTitle = newTodo.find('span.items');
+                console.log("Found element", itemTitle.length);
+                if (!itemTitle.hasClass('item-done'))
+                {
+                    itemTitle.addClass('item-done');
+                }
+                else
+                {
+                    itemTitle.removeClass('item-done');
+                }
             });
         }
     });

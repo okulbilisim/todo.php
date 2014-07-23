@@ -4,8 +4,6 @@
     background-color: #ffffff;
     border-radius: 5px;
     width: 50%;
-
-
 }
 .div-header{
     margin-top: 10px;
@@ -39,4 +37,9 @@
 .items{
     color:#336699;
     font-weight: bold;
+}
+
+.item-done {
+    text-decoration: line-through;
+    color: grey;
 }
