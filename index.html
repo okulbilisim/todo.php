@@ -4,8 +4,6 @@
 <head>
     <meta charset="utf-8">
     <title>To Do List</title>
-
-
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link href="style.css" rel="stylesheet">
 
@@ -80,14 +78,13 @@
             var newTodo = $('<div class="well"></div>');
 
             var val = input.val().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;");
-
             newTodo.html(template.html().replace('[TODO_TITLE]', val));
             todoContainer.append(newTodo);
 
             // clear input and focus
             input.val('');
             input.focus();
-            
+
             newTodo.find('img.deleteLink').click(function(e)
             {
                 console.log("Found");
@@ -105,6 +102,35 @@
                 itemTitle.toggleClass('item-done');
             });
 
+            newTodo.find('img.editLink').click(function(e)
+            {
+                e.preventDefault();
+                var row = newTodo.find('span.items');
+                if (row.find('input').length === 0)
+                {
+                    var editInput = $('<input type="text" />');
+                    editInput.val(row.html());
+
+                    row.html('');
+                    row.append(editInput);
+
+                    editInput.keydown(function(e)
+                    {
+                        if (e.keyCode == 13)
+                        {
+                            e.preventDefault();
+                            var value = editInput.val();
+                            if (value.length < 1)
+                            {
+                                alert('You should enter at least 1 character.');
+                                return;
+                            }
+
+                            row.html(value);
+                        }
+                    });
+                }
+            });
             $('.icons').tooltip();
         }
     });
