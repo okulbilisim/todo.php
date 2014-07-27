@@ -129,6 +129,11 @@
                             return;
                         }
 
+                        $.post('/update/' + newTodo.attr('data-id'), { todo: value }, function(data)
+                        {
+                            console.log('Updated: ', data);
+                        });
+
                         row.html(value);
                     }
                 });

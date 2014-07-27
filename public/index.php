@@ -35,5 +35,34 @@ $app->post('/insert', function() use ($app, $db)
     echo 'ok:' . $stmt->insert_id;
 });
 
+$app->post('/update/:id', function($id) use ($app, $db)
+{
+    $stmt = $db->prepare("select * from todo where id = ?");
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    if (!$row)
+    {
+        echo 'error:data bulunamadi';
+        return;
+    }
+
+    $todo = $app->request->post('todo');
+    if (empty($todo))
+    {
+        echo 'error:Todo should not be empty.';
+        return;
+    }
+
+    $stmt = $db->prepare("update todo SET todo = ? where id = ?");
+    $stmt->bind_param('si', $todo, $id);
+    $stmt->execute();
+
+    echo 'ok:' . $id;
+});
+
 $app->run();
 $db->close();
