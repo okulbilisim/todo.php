@@ -62,6 +62,82 @@
         }
     });
 
+    function addTodo(todo, id)
+    {
+        if (id === undefined)
+        {
+            $.post('/insert', { todo: todo }, function(data)
+            {
+                data = data.split(':');
+                if (data[0] == 'ok')
+                {
+                    addTodo(todo, data[1]);
+                }
+                else
+                {
+                    alert('Error occured: ' + data[1]);
+                }
+            });
+            return;
+        }
+
+        var newTodo = $('<div class="well"></div>');
+        newTodo.attr('data-id', id);
+
+        var val = todo.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;");
+        newTodo.html(template.html().replace('[TODO_TITLE]', val));
+        todoContainer.append(newTodo);
+
+        newTodo.find('img.deleteLink').click(function(e)
+        {
+            console.log("Found");
+            e.preventDefault();
+            setTimeout(function() { newTodo.remove(); }, 0);
+        })
+
+        newTodo.find('img.doneLink').click(function(e)
+        {
+            console.log("Found");
+            e.preventDefault();
+
+            var itemTitle = newTodo.find('span.items');
+            console.log("Found element", itemTitle.length);
+            itemTitle.toggleClass('item-done');
+        });
+
+        newTodo.find('img.editLink').click(function(e)
+        {
+            e.preventDefault();
+            var row = newTodo.find('span.items');
+            if (row.find('input').length === 0)
+            {
+                var editInput = $('<input type="text" />');
+                editInput.val(row.html());
+
+                row.html('');
+                row.append(editInput);
+
+                editInput.keydown(function(e)
+                {
+                    if (e.keyCode == 13)
+                    {
+                        e.preventDefault();
+                        var value = editInput.val();
+                        if (value.length < 1)
+                        {
+                            alert('You should enter at least 1 character.');
+                            return;
+                        }
+
+                        row.html(value);
+                    }
+                });
+            }
+        });
+
+        $('.icons').tooltip();
+    }
+
     input.keydown(function(e)
     {
         // enter tusu
@@ -75,63 +151,11 @@
                 return;
             }
 
-            var newTodo = $('<div class="well"></div>');
-
-            var val = input.val().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;");
-            newTodo.html(template.html().replace('[TODO_TITLE]', val));
-            todoContainer.append(newTodo);
+            addTodo(input.val());
 
             // clear input and focus
             input.val('');
             input.focus();
-
-            newTodo.find('img.deleteLink').click(function(e)
-            {
-                console.log("Found");
-                e.preventDefault();
-                setTimeout(function() { newTodo.remove(); }, 0);
-            })
-
-            newTodo.find('img.doneLink').click(function(e)
-            {
-                console.log("Found");
-                e.preventDefault();
-
-                var itemTitle = newTodo.find('span.items');
-                console.log("Found element", itemTitle.length);
-                itemTitle.toggleClass('item-done');
-            });
-
-            newTodo.find('img.editLink').click(function(e)
-            {
-                e.preventDefault();
-                var row = newTodo.find('span.items');
-                if (row.find('input').length === 0)
-                {
-                    var editInput = $('<input type="text" />');
-                    editInput.val(row.html());
-
-                    row.html('');
-                    row.append(editInput);
-
-                    editInput.keydown(function(e)
-                    {
-                        if (e.keyCode == 13)
-                        {
-                            e.preventDefault();
-                            var value = editInput.val();
-                            if (value.length < 1)
-                            {
-                                alert('You should enter at least 1 character.');
-                                return;
-                            }
-
-                            row.html(value);
-                        }
-                    });
-                }
-            });
-            $('.icons').tooltip();
         }
     });
 
