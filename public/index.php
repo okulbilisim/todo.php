@@ -9,7 +9,14 @@ $db = new mysqli('127.0.0.1', 'root', '123456', 'todo');
 
 $app->get('/', function() use ($app, $db)
 {
-    $app->render('todo.php');
+    $result = $db->query("select * from todo order by id asc");
+    $data = array();
+    foreach ($result->fetch_all(MYSQLI_ASSOC) as $row)
+    {
+        $data[] = array('id' => $row['id'], 'todo' => $row['todo']);
+    }
+
+    $app->render('todo.php', array('data' => $data));
 });
 
 $app->post('/insert', function() use ($app, $db)

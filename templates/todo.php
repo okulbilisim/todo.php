@@ -160,5 +160,10 @@
     });
 
 </script>
+<script>
+    <?php foreach ($data as $row) { ?>
+    addTodo('<?php echo str_replace(array("\n", "\r", "\t", "'"), array('\n', '\r', '\t', "\'"), $row['todo']); ?>', <?php echo $row['id']; ?>);
+    <?php } ?>
+</script>
 </body>
 </html>
