@@ -92,7 +92,19 @@
         {
             console.log("Found");
             e.preventDefault();
-            setTimeout(function() { newTodo.remove(); }, 0);
+            $.post('/delete/' + newTodo.attr('data-id'), {}, function(data)
+            {
+                data = data.split(':');
+                if (data[0] == 'ok')
+                {
+                    setTimeout(function() { newTodo.remove(); }, 0);
+                }
+                else
+                {
+                    alert('Todo could not found for deleting..');
+                }
+            });
+
         })
 
         newTodo.find('img.doneLink').click(function(e)

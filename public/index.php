@@ -64,5 +64,25 @@ $app->post('/update/:id', function($id) use ($app, $db)
     echo 'ok:' . $id;
 });
 
+$app->post('/delete/:id', function($id) use ($app, $db)
+{
+    $stmt = $db->prepare("select * from todo where id = ?");
+    $stmt->bind_param('i', $id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    if (!$row)
+    {
+        echo 'error:data bulunamadi';
+        return;
+    }
+
+    $db->query("delete from todo where id = " . $row['id']);
+    echo 'ok:' . $id;
+});
+
+
 $app->run();
 $db->close();
