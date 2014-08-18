@@ -9,7 +9,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "slim/slim": "2.*"
+        "slim/slim": "2.*",
+   	"illuminate/database": "*"
     },
     "autoload": {
         "psr-4": {
