@@ -3,7 +3,7 @@
 composer.phar
 /vendor/
 
-/cache/*
+/cache/*/*
 
 ### NetBeans ###
 nbproject/private/
