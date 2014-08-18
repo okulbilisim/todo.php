@@ -10,9 +10,7 @@
     "minimum-stability": "dev",
     "require": {
         "slim/slim": "2.*",
-   	"illuminate/database": "*",
-        "slim/views": "*",
-        "twig/twig": "*"
+   	"illuminate/database": "*"
     },
     "autoload": {
         "psr-4": {
