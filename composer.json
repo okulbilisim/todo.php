@@ -1,0 +1,19 @@
+{
+    "name": "okulbilisim/todo.php",
+    "description": "Educational purpose only",
+    "authors": [
+        {
+            "name": "hasantayyar",
+            "email": "tayyar.besik@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "slim/slim": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Okulbilisim\\": "src"
+        }
+    }
+}
