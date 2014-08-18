@@ -1,0 +1,18 @@
+{
+    "name": "okulbilisim/todo.php",
+    "authors": [
+        {
+            "name": "hasantayyar",
+            "email": "tayyar.besik@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "Okulbilisim\\": "src"
+        }
+    }
+}
