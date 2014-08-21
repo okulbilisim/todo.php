@@ -5,5 +5,6 @@
 .todo-count{float:left;}
 .todo-count .count{font-weight:700;}
 #clear-completed{cursor:pointer;padding:10px;}
-#main,#todo-list li .edit,#todo-list li.editing .view{display:none;}
+#todo-list li .edit,#todo-list li.editing .view{display:none;}
+#todo-list li.editing .edit{display:inline-block;}
 #todo-list li.done label,#todo-list li .done-true{color:#777;text-decoration:line-through;}

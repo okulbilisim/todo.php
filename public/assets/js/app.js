@@ -8,6 +8,20 @@ function tcontroller($scope) {
           $scope.title = '';
       }
   };
+
+  $scope.toggleEdit = function(){
+  		$(event.target).parents('li').toggleClass('editing');
+  };
+  
+  $scope.editDone = function(todo){
+      if(event.keyCode == 13 && todo.text){
+          $scope.toggleEdit();
+      }
+  };
+
+  $scope.deleteOne = function(todo){
+  		$scope.todos.splice( $scope.todos.indexOf(todo), 1 );
+  };
     
 }
 
