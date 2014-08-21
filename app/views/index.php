@@ -21,12 +21,13 @@
     <section id="main" style="display: block;">
         
         <ul id="todo-list" class="unstyled">
-          <li ng-repeat="todo in todos">
+          <li ng-repeat="todo in todos" ng-dblclick="toggleEdit()">
             <div class="view" ng-keyup="editTodo()">
               <input type="checkbox" ng-model="todo.done"/>
               <span class="done-{{todo.done}}" >{{todo.text}}</span>
+                <a href="#" ng-click="deleteOne(todo)">x</a>
             </div>
-            <input class="edit" type="text" ng-model="todo.text" />
+            <input class="edit" type="text" ng-model="todo.text" ng-keyup="editDone(todo)"/>
           </li>
         </ul>
     </section>
@@ -35,6 +36,7 @@
 </div>
 
         <script src="/assets/vendor/angular/angular.min.js"></script>
+        <script src="/assets/vendor/jquery/dist/jquery.min.js"></script>
         <script src="/assets/js/app.js"></script>
     </body>
 </html>
